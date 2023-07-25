@@ -1,0 +1,24 @@
+# fastapi-service.yaml
+# Ce fichier définit un Service pour exposer l'application 
+# FastAPI à l'extérieur du cluster.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-service
+spec:
+  selector:
+    app: fastapi-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: LoadBalancer
+
+# Dans cet exemple, nous utilisons le type LoadBalancer 
+# pour le service FastAPI, ce qui signifie que Kubernetes 
+# provisionnera automatiquement un équilibreur de charge 
+# externe (Load Balancer) pour exposer l'application à l'extérieur 
+# du cluster. Cela permettra d'accéder à l'application FastAPI 
+# depuis Internet en utilisant l'adresse IP publique de l'équilibreur 
+# de charge.

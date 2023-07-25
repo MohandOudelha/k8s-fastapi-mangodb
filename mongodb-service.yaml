@@ -1,0 +1,14 @@
+# mongodb-service.yaml
+# Ce fichier définit un Service pour exposer la base de données MongoDB à d'autres services dans le cluster.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017

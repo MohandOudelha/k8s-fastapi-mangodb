@@ -1,0 +1,49 @@
+# fastapi-deployment.yaml
+# Ce fichier définit un Deployment pour l'application FastAPI avec 3 réplicas.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-app
+spec:
+  # Nombre de réplicas pour l'application FastAPI
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi-app
+  template:
+    metadata:
+      labels:
+        app: fastapi-app
+    spec:
+      containers:
+        - name: fastapi-container
+          image: your-fastapi-image:latest
+          ports:
+            - containerPort: 8000
+          env:
+            # Variables d'environnement pour la connexion à MongoDB
+            # Assurez-vous de remplacer les valeurs par celles correspondant à votre base de données.
+            - name: MONGO_HOST
+              value: mongodb-service
+            - name: MONGO_PORT
+              value: "27017"
+            - name: MONGO_DB
+              value: my_database
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secrets
+                  key: username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secrets
+                  key: password
+          resources:
+            limits:
+              cpu: "500m"  # Limite de CPU à 500 milli-CPU (0.5 Core)
+              memory: "512Mi"  # Limite de mémoire à 512 Méga-octets
+            requests:
+              cpu: "200m"  # Demande de CPU à 200 milli-CPU (0.2 Core)
+              memory: "256Mi"  # Demande de mémoire à 256 Méga-octets

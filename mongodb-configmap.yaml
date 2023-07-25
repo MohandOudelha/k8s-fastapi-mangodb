@@ -1,0 +1,17 @@
+# mongodb-configmap.yaml
+# Ce fichier définit une ConfigMap pour stocker les configurations de MongoDB.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongodb-config
+data:
+  # Variables de configuration pour MongoDB
+  # Vous pouvez ajuster ces valeurs en fonction de votre environnement.
+  MONGO_INITDB_ROOT_USERNAME: my_admin_username
+  MONGO_INITDB_ROOT_PASSWORD: my_admin_password
+  MONGO_INITDB_DATABASE: my_database
+  MONGO_USERNAME_1: user1
+  MONGO_PASSWORD_1: password1
+  MONGO_USERNAME_2: user2
+  MONGO_PASSWORD_2: password2
